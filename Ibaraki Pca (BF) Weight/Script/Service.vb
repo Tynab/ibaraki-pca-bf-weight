@@ -5,26 +5,26 @@ Imports Microsoft.Office.Interop.Excel
 ''' </summary>
 Friend Module Service
     ''' <summary>
-    ''' Chạy lần lượt các nhóm câu hỏi và ghi kết quả vào workbook Excel đang mở.
+    ''' Chạy lần lượt các nhóm câu hỏi và ghi kết quả vào sổ tính Excel đang mở.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang chứa workbook cần xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang chứa sổ tính cần xử lý.</param>
     Friend Sub WtIbarakiPcaBF(xlApp As Application)
         ' Vận phí.
         Fare(xlApp, HdrYnq(vbTab & vbTab & "運賃 (2トン車): "))
 
-        ' Slab dạng móc.
+        ' Sàn dạng móc.
         SlabHookType(xlApp, HdrYnq(vbTab & vbTab & "スラブフック型 (D13): "))
 
-        ' Slab dạng L.
+        ' Sàn dạng L.
         SlabLType(xlApp, HdrYnq(vbTab & vbTab & "スラブＬ型 (D13): "))
 
-        ' Slab thẳng.
+        ' Sàn thẳng.
         SlabStr(xlApp, HdrYnq(vbTab & vbTab & "スラブ直 (D13): "))
 
-        ' Slab gia cường dạng móc.
+        ' Sàn gia cường dạng móc.
         SlabReinfHookType(xlApp, HdrYnq(vbTab & vbTab & "スラブ補強フック型 (D10): "))
 
-        ' Slab gia cường thẳng.
+        ' Sàn gia cường thẳng.
         SlabReinfStr(xlApp, HdrYnq(vbTab & vbTab & "スラブ補強直 (D10): "))
 
         ' Thép đầu dưới D13.
@@ -37,23 +37,23 @@ Friend Module Service
         ' Thép đầu biên D10.
         Edge(xlApp, HdrYnq(vbTab & vbTab & "端部 (D10): "))
 
-        ' Sleeve.
+        ' Ống chờ.
         Sleeve(xlApp, HdrDInp(vbTab & vbTab & "スリーブ: "))
 
         ' Góc nối.
         HdrWrng(vbTab & vbTab & "コーナー" & vbCrLf)
         JtCor(xlApp)
 
-        ' Sashi dùng cho doma.
+        ' Thép chờ dùng cho doma.
         PubDVal(xlApp, "BA139", HdrDInp(vbTab & vbTab & "土間用さし: "))
 
         ' Thép dạng chữ U.
         PubDModVal(xlApp, "126", "（Ｕノ字型）", "900×80×900", 3.1, HdrDInp(vbTab & vbTab & "Ｕ型 (D16): "))
 
-        ' Haunch H250.
+        ' Phần vát H250.
         Haunch(xlApp, HdrYnq(vbTab & vbTab & "ハンチ (H250): "))
 
-        ' Slab đầu biên cho móng sâu.
+        ' Sàn đầu biên cho móng sâu.
         PubDModVal(xlApp, "129", "650×250　　フック付", 0.6, HdrDInp(vbTab & vbTab & "深基礎用端部スラブ (D10): "))
 
         ' Máy nước nóng điện.

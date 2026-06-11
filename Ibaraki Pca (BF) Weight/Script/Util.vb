@@ -1,13 +1,13 @@
 Imports Microsoft.Office.Interop.Excel
 
 ''' <summary>
-''' Chứa các nhóm nhập liệu nghiệp vụ và mapping từ từng hạng mục sang ô Excel.
+''' Chứa các nhóm nhập liệu nghiệp vụ và ánh xạ từ từng hạng mục sang ô Excel.
 ''' </summary>
 Friend Module Util
     ''' <summary>
     ''' Ghi lựa chọn vận phí xe 2 tấn và số lượng mặc định cho D13/D10.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub Fare(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -18,9 +18,9 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Nhập số lượng slab dạng móc D13 và ghi vào các dòng BA36-BA45.
+    ''' Nhập số lượng sàn dạng móc D13 và ghi vào các dòng BA36-BA45.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub SlabHookType(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -38,9 +38,9 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Nhập số lượng slab dạng L D13 và ghi vào các dòng BA46-BA55.
+    ''' Nhập số lượng sàn dạng L D13 và ghi vào các dòng BA46-BA55.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub SlabLType(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -58,9 +58,9 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Nhập số lượng slab thẳng D13 và ghi các dòng BA56-BA67.
+    ''' Nhập số lượng sàn thẳng D13 và ghi các dòng BA56-BA67.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub SlabStr(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -80,9 +80,9 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Nhập số lượng slab gia cường dạng móc D10 và ghi thêm thông tin trọng lượng.
+    ''' Nhập số lượng sàn gia cường dạng móc D10 và ghi thêm thông tin trọng lượng.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub SlabReinfHookType(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -100,9 +100,9 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Nhập số lượng slab gia cường thẳng D10 và ghi vào các dòng BA78-BA87.
+    ''' Nhập số lượng sàn gia cường thẳng D10 và ghi vào các dòng BA78-BA87.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub SlabReinfStr(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -122,7 +122,7 @@ Friend Module Util
     ''' <summary>
     ''' Nhập nhóm thép đầu dưới D13 bắt buộc.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     Friend Sub LwrEndD13(xlApp As Application)
         PubDVal(xlApp, "BA111", DtlDInp(vbTab & "    5500: "))
         PubDVal(xlApp, "BA112", DtlDInp(vbTab & "    5000: "))
@@ -140,7 +140,7 @@ Friend Module Util
     ''' <summary>
     ''' Nhập nhóm thép đầu dưới D16 khi người dùng chọn có.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub LwrEndD16(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -160,7 +160,7 @@ Friend Module Util
     ''' <summary>
     ''' Nhập nhóm thép đầu biên D10.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub Edge(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -178,10 +178,10 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Ghi số lượng sleeve vào các dòng liên quan nếu giá trị lớn hơn 0.
+    ''' Ghi số lượng ống chờ vào các dòng liên quan nếu giá trị lớn hơn 0.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
-    ''' <param name="value">Số lượng sleeve.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
+    ''' <param name="value">Số lượng ống chờ.</param>
     Friend Sub Sleeve(xlApp As Application, value As Double)
         If value > 0 Then
             DctVal(xlApp, "BA30", value)
@@ -192,7 +192,7 @@ Friend Module Util
     ''' <summary>
     ''' Nhập nhóm thép góc nối.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     Friend Sub JtCor(xlApp As Application)
         PubDModVal(xlApp, "122", "D16", "（コーナー）", "900×900", 2.9, DtlDInp(vbTab & "D16: "))
         PubDVal(xlApp, "BA124", DtlDInp(vbTab & "D13: "))
@@ -200,9 +200,9 @@ Friend Module Util
     End Sub
 
     ''' <summary>
-    ''' Nhập nhóm haunch H250 khi người dùng chọn có.
+    ''' Nhập nhóm phần vát H250 khi người dùng chọn có.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="chosen">Giá trị chọn 1/0.</param>
     Friend Sub Haunch(xlApp As Application, chosen As Integer)
         If chosen = 1 Then
@@ -214,7 +214,7 @@ Friend Module Util
     ''' <summary>
     ''' Ghi hoặc xóa số lượng máy nước nóng điện tùy theo giá trị nhập.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     ''' <param name="value">Số lượng máy nước nóng điện.</param>
     Friend Sub ElecWtrHtr(xlApp As Application, value As Double)
         If value > 0 Then
@@ -227,7 +227,7 @@ Friend Module Util
     ''' <summary>
     ''' Nhập danh sách phụ kiện/vật tư phụ và thông tin công trình.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
     Friend Sub Parts(xlApp As Application)
         Dim name = $"{DtlSInp(vbTab & "邸名" & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & ": ")}様邸"
         DctVal(xlApp, "BJ13", name)
@@ -268,8 +268,8 @@ Friend Module Util
     ''' <summary>
     ''' Đổi tên worksheet hiện tại theo tên công trình, tự xử lý ký tự không hợp lệ.
     ''' </summary>
-    ''' <param name="xlApp">Excel application đang xử lý.</param>
-    ''' <param name="desiredName">Tên mong muốn lấy từ input người dùng.</param>
+    ''' <param name="xlApp">Ứng dụng Excel đang xử lý.</param>
+    ''' <param name="desiredName">Tên mong muốn lấy từ dữ liệu nhập của người dùng.</param>
     Private Sub RenameActiveWorksheet(xlApp As Application, desiredName As String)
         Dim worksheet = TryCast(xlApp.ActiveSheet, Worksheet)
 
@@ -280,7 +280,7 @@ Friend Module Util
         Try
             worksheet.Name = BuildSafeWorksheetName(desiredName)
         Catch ex As Exception
-            ' Nếu trùng tên sheet hoặc workbook đang bảo vệ, giữ nguyên tên hiện tại.
+            ' Nếu trùng tên sheet hoặc sổ tính đang bảo vệ, giữ nguyên tên hiện tại.
         End Try
     End Sub
 
