@@ -1,46 +1,65 @@
-﻿Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.Office.Interop.Excel
 
+''' <summary>
+''' Điều phối toàn bộ luồng nhập liệu và ghi dữ liệu cho mẫu 茨城 PCa-BF.
+''' </summary>
 Friend Module Service
     ''' <summary>
-    ''' Weight Ibaraki Pca BF.
+    ''' Chạy lần lượt các nhóm câu hỏi và ghi kết quả vào workbook Excel đang mở.
     ''' </summary>
-    ''' <param name="xlApp">Excel Application.</param>
+    ''' <param name="xlApp">Excel application đang chứa workbook cần xử lý.</param>
     Friend Sub WtIbarakiPcaBF(xlApp As Application)
-        ' Fare
-        Fare(xlApp, HdrYNQ(vbTab & vbTab & "運賃 (2トン車): "))
-        ' Slab hook type
-        SlabHookType(xlApp, HdrYNQ(vbTab & vbTab & "スラブフック型 (D13): "))
-        'Slab L type
-        SlabLType(xlApp, HdrYNQ(vbTab & vbTab & "スラブＬ型 (D13): "))
-        ' Slab straight
-        SlabStr(xlApp, HdrYNQ(vbTab & vbTab & "スラブ直 (D13): "))
-        ' Slab reinforcement hook type
-        SlabReinfHookType(xlApp, HdrYNQ(vbTab & vbTab & "スラブ補強フック型 (D10): "))
-        ' Slab reinforcement straight
-        SlabReinfStr(xlApp, HdrYNQ(vbTab & vbTab & "スラブ補強直 (D10): "))
-        ' Lower end d13
+        ' Vận phí.
+        Fare(xlApp, HdrYnq(vbTab & vbTab & "運賃 (2トン車): "))
+
+        ' Slab dạng móc.
+        SlabHookType(xlApp, HdrYnq(vbTab & vbTab & "スラブフック型 (D13): "))
+
+        ' Slab dạng L.
+        SlabLType(xlApp, HdrYnq(vbTab & vbTab & "スラブＬ型 (D13): "))
+
+        ' Slab thẳng.
+        SlabStr(xlApp, HdrYnq(vbTab & vbTab & "スラブ直 (D13): "))
+
+        ' Slab gia cường dạng móc.
+        SlabReinfHookType(xlApp, HdrYnq(vbTab & vbTab & "スラブ補強フック型 (D10): "))
+
+        ' Slab gia cường thẳng.
+        SlabReinfStr(xlApp, HdrYnq(vbTab & vbTab & "スラブ補強直 (D10): "))
+
+        ' Thép đầu dưới D13.
         HdrWrng(vbTab & vbTab & "下端 (D13)" & vbCrLf)
         LwrEndD13(xlApp)
-        ' Lower end d16
-        LwrEndD16(xlApp, HdrYNQ(vbTab & vbTab & "下端 (D16): "))
-        ' Edge
-        Edge(xlApp, HdrYNQ(vbTab & vbTab & "端部 (D10): "))
-        ' Sleeve
+
+        ' Thép đầu dưới D16.
+        LwrEndD16(xlApp, HdrYnq(vbTab & vbTab & "下端 (D16): "))
+
+        ' Thép đầu biên D10.
+        Edge(xlApp, HdrYnq(vbTab & vbTab & "端部 (D10): "))
+
+        ' Sleeve.
         Sleeve(xlApp, HdrDInp(vbTab & vbTab & "スリーブ: "))
-        ' Corner joint
+
+        ' Góc nối.
         HdrWrng(vbTab & vbTab & "コーナー" & vbCrLf)
         JtCor(xlApp)
-        ' Dirt floor scissors
+
+        ' Sashi dùng cho doma.
         PubDVal(xlApp, "BA139", HdrDInp(vbTab & vbTab & "土間用さし: "))
-        ' U type
+
+        ' Thép dạng chữ U.
         PubDModVal(xlApp, "126", "（Ｕノ字型）", "900×80×900", 3.1, HdrDInp(vbTab & vbTab & "Ｕ型 (D16): "))
-        ' Haunch
-        Haunch(xlApp, HdrYNQ(vbTab & vbTab & "ハンチ (H250): "))
-        ' End slab for deep foundation
+
+        ' Haunch H250.
+        Haunch(xlApp, HdrYnq(vbTab & vbTab & "ハンチ (H250): "))
+
+        ' Slab đầu biên cho móng sâu.
         PubDModVal(xlApp, "129", "650×250　　フック付", 0.6, HdrDInp(vbTab & vbTab & "深基礎用端部スラブ (D10): "))
-        ' Electric water heater
+
+        ' Máy nước nóng điện.
         ElecWtrHtr(xlApp, HdrDInp(vbTab & vbTab & "電気温水器: "))
-        ' Parts
+
+        ' Danh sách phụ kiện/vật tư phụ.
         HdrWrng(vbTab & vbTab & "副資材リスト" & vbCrLf)
         Parts(xlApp)
     End Sub

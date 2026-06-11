@@ -1,31 +1,44 @@
-﻿Imports System.Console
+Imports System.Console
 Imports System.Text.Encoding
 Imports System.Windows.Forms
-Imports System.Windows.Forms.DialogResult
-Imports System.Windows.Forms.MessageBox
-Imports System.Windows.Forms.MessageBoxButtons
 
+''' <summary>
+''' Điểm vào chính: kiểm tra license cục bộ rồi chạy luồng xử lý Excel.
+''' </summary>
 Public Module Main
     ''' <summary>
-    ''' Main.
+    ''' Thiết lập console UTF-8 và chỉ chạy ứng dụng khi license hợp lệ.
     ''' </summary>
     Public Sub Main()
         OutputEncoding = UTF8
-        If Not My.Settings.Chk_Key Then
-ChkPt:
-            If InputBox("シリアルを入力", "ライセンスキー") = My.Resources.key_ser Then
-                UpdVldLic()
-                RunApp()
-            Else
-                If Show("ライセンスが間違っています！", "エラー", RetryCancel, MessageBoxIcon.Error) = Retry Then
-                    GoTo ChkPt
-                Else
-                    ErrSty("終了するには、任意のキーを押してください...")
-                    ReadKey()
-                End If
-            End If
-        Else
+
+        If My.Settings.Chk_Key OrElse PromptLicenseUntilValid() Then
             RunApp()
         End If
     End Sub
+
+    ''' <summary>
+    ''' Hỏi serial cho tới khi người dùng nhập đúng hoặc chọn hủy.
+    ''' </summary>
+    ''' <returns>True nếu license hợp lệ; False nếu người dùng hủy.</returns>
+    Private Function PromptLicenseUntilValid() As Boolean
+        Do
+            If InputBox("シリアルを入力", "ライセンスキー") = My.Resources.key_ser Then
+                UpdVldLic()
+                Return True
+            End If
+
+            Dim retry = MessageBox.Show(
+                "ライセンスが間違っています！",
+                "エラー",
+                MessageBoxButtons.RetryCancel,
+                MessageBoxIcon.Error)
+
+            If retry <> DialogResult.Retry Then
+                ErrSty("終了するには、任意のキーを押してください...")
+                ReadKey()
+                Return False
+            End If
+        Loop
+    End Function
 End Module
