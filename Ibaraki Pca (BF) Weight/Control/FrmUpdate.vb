@@ -6,12 +6,12 @@ Imports System.Windows.Forms
 Imports System.Windows.Forms.Keys
 
 ''' <summary>
-''' Form tải bản cập nhật: hiển thị tiến độ, tải installer và chạy file khi hoàn tất.
+''' Form tải bản cập nhật: hiển thị tiến độ, tải trình cài đặt và chạy file khi hoàn tất.
 ''' </summary>
 Public Class FrmUpdate
 #Region "Fields"
     ''' <summary>
-    ''' WebClient có timeout để tránh form update treo quá lâu khi server không phản hồi.
+    ''' WebClient có thời gian chờ để tránh form cập nhật treo quá lâu khi server không phản hồi.
     ''' </summary>
     Private Class UpdateWebClient
         Inherits WebClient
@@ -62,7 +62,7 @@ Public Class FrmUpdate
     End Sub
 
     ''' <summary>
-    ''' Chuẩn bị thư mục và bắt đầu tải installer khi form đã hiển thị.
+    ''' Chuẩn bị thư mục và bắt đầu tải trình cài đặt khi form đã hiển thị.
     ''' </summary>
     Private Sub FrmUpdate_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         FIFrm()
@@ -87,7 +87,7 @@ Public Class FrmUpdate
     End Sub
 
     ''' <summary>
-    ''' Cập nhật dung lượng, phần trăm và thanh tiến độ khi WebClient báo progress.
+    ''' Cập nhật dung lượng, phần trăm và thanh tiến độ khi WebClient báo tiến độ.
     ''' </summary>
     Private Sub Upd_DownloadProgressChanged(sender As Object, e As DownloadProgressChangedEventArgs)
         Dim totalText = If(e.TotalBytesToReceive > 0, ToMbText(e.TotalBytesToReceive), "?")
@@ -123,7 +123,7 @@ Public Class FrmUpdate
     End Sub
 
     ''' <summary>
-    ''' Timer fallback: nếu trạng thái hoàn tất đã được set thì đóng form.
+    ''' Bộ hẹn giờ dự phòng: nếu trạng thái hoàn tất đã được đặt thì đóng form.
     ''' </summary>
     Private Sub TmrMain_Tick(sender As Object, e As EventArgs) Handles tmrMain.Tick
         If _downloadCompletedSuccessfully Then
@@ -133,7 +133,7 @@ Public Class FrmUpdate
     End Sub
 
     ''' <summary>
-    ''' Hủy download đang chạy nếu form bị đóng trước khi hoàn tất, sau đó fade out.
+    ''' Hủy lượt tải đang chạy nếu form bị đóng trước khi hoàn tất, sau đó làm mờ form.
     ''' </summary>
     Private Sub FrmUpdate_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If Not _downloadCompletedSuccessfully AndAlso _wc.IsBusy Then
@@ -144,7 +144,7 @@ Public Class FrmUpdate
     End Sub
 
     ''' <summary>
-    ''' Dọn event/WebClient và chỉ chạy installer khi download hoàn tất thành công.
+    ''' Dọn sự kiện/WebClient và chỉ chạy trình cài đặt khi lượt tải hoàn tất thành công.
     ''' </summary>
     Private Sub FrmUpdate_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         RemoveHandler _wc.DownloadProgressChanged, AddressOf Upd_DownloadProgressChanged
@@ -167,7 +167,7 @@ Public Class FrmUpdate
 
 #Region "Private helpers"
     ''' <summary>
-    ''' Đặt lại text và progress bar về trạng thái ban đầu.
+    ''' Đặt lại nội dung hiển thị và thanh tiến độ về trạng thái ban đầu.
     ''' </summary>
     Private Sub ResetProgress()
         lblCapacity.Text = ""
@@ -179,15 +179,15 @@ Public Class FrmUpdate
     ''' Đổi số byte sang MB với 2 chữ số thập phân.
     ''' </summary>
     ''' <param name="bytes">Số byte.</param>
-    ''' <returns>Chuỗi MB đã format.</returns>
+    ''' <returns>Chuỗi MB đã định dạng.</returns>
     Private Function ToMbText(bytes As Long) As String
         Return (bytes / 1024D / 1024D).ToString("0.00")
     End Function
 
     ''' <summary>
-    ''' Hiển thị lỗi tải update và đóng form mà không chạy installer.
+    ''' Hiển thị lỗi tải cập nhật và đóng form mà không chạy trình cài đặt.
     ''' </summary>
-    ''' <param name="ex">Exception gốc.</param>
+    ''' <param name="ex">Ngoại lệ gốc.</param>
     Private Sub HandleDownloadFailure(ex As Exception)
         _downloadCompletedSuccessfully = False
         tmrMain.StopAdv()

@@ -18,7 +18,7 @@ Friend Module Common
 
 #Region "Network"
     ''' <summary>
-    ''' WebClient có timeout để tránh treo ứng dụng khi endpoint update phản hồi chậm.
+    ''' WebClient có thời gian chờ để tránh treo ứng dụng khi địa chỉ cập nhật phản hồi chậm.
     ''' </summary>
     Private Class TimeoutWebClient
         Inherits WebClient
@@ -37,7 +37,7 @@ Friend Module Common
     End Class
 
     ''' <summary>
-    ''' Kiểm tra kết nối mạng bằng URL cơ bản trong resource.
+    ''' Kiểm tra kết nối mạng bằng URL cơ bản trong tài nguyên.
     ''' </summary>
     ''' <returns>True nếu mở được kết nối; ngược lại là False.</returns>
     Private Function IsNetAvail() As Boolean
@@ -72,7 +72,7 @@ Friend Module Common
     End Function
 
     ''' <summary>
-    ''' Kiểm tra cập nhật và mở form tải installer khi có phiên bản mới.
+    ''' Kiểm tra cập nhật và mở form tải trình cài đặt khi có phiên bản mới.
     ''' </summary>
     Private Sub ChkUpd()
         HdrSty("アップデートの確認...")
@@ -166,7 +166,7 @@ Friend Module Common
     End Sub
 
     ''' <summary>
-    ''' Nhắc người dùng đóng Excel rồi kill process Excel trước khi app mở workbook.
+    ''' Nhắc người dùng đóng Excel rồi kết thúc process Excel trước khi ứng dụng mở sổ tính.
     ''' </summary>
     Private Sub KillXl()
         Clear()
@@ -194,7 +194,7 @@ Friend Module Common
     End Sub
 
     ''' <summary>
-    ''' Mở workbook bằng Excel COM, ghi dữ liệu nghiệp vụ, lưu và mở file bằng ứng dụng mặc định.
+    ''' Mở sổ tính bằng Excel COM, ghi dữ liệu nghiệp vụ, lưu và mở file bằng ứng dụng mặc định.
     ''' </summary>
     ''' <param name="filePath">Đường dẫn file Excel cần xử lý.</param>
     Private Sub ProcessWorkbook(filePath As String)
@@ -219,7 +219,7 @@ Friend Module Common
                 Try
                     workbook.Close(SaveChanges:=False)
                 Catch ex As Exception
-                    ' Nếu workbook đã bị Excel đóng trước đó thì chỉ cần tiếp tục dọn COM.
+                    ' Nếu sổ tính đã bị Excel đóng trước đó thì chỉ cần tiếp tục dọn COM.
                 End Try
             End If
 
@@ -276,7 +276,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi trực tiếp giá trị vào ô Excel.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="cell">Địa chỉ ô.</param>
     ''' <param name="value">Giá trị cần ghi.</param>
     Friend Sub DctVal(xlApp As Excel.Application, cell As String, value As Object)
@@ -286,7 +286,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi giá trị vào ô Excel và tô màu để đánh dấu ô được override.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="cell">Địa chỉ ô.</param>
     ''' <param name="value">Giá trị cần ghi.</param>
     Private Sub ModVal(xlApp As Excel.Application, cell As String, value As Object)
@@ -296,7 +296,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi giá trị vào range mà không cần Activate/ActiveCell, giúp giảm phụ thuộc trạng thái UI Excel.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="cell">Địa chỉ ô.</param>
     ''' <param name="value">Giá trị cần ghi.</param>
     ''' <param name="highlight">True nếu cần tô màu ô.</param>
@@ -318,7 +318,7 @@ Friend Module Common
     ''' <summary>
     ''' Xóa nội dung của merge area chứa ô Excel được chỉ định.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="cell">Địa chỉ ô.</param>
     Friend Sub ClrVal(xlApp As Excel.Application, cell As String)
         Dim range As Excel.Range = Nothing
@@ -337,8 +337,8 @@ Friend Module Common
     ''' <summary>
     ''' Nhập chuỗi từ console rồi ghi vào ô Excel.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
-    ''' <param name="caption">Nội dung prompt.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
+    ''' <param name="caption">Nội dung lời nhắc.</param>
     ''' <param name="cell">Địa chỉ ô.</param>
     Friend Sub PubSVal(xlApp As Excel.Application, caption As String, cell As String)
         DctVal(xlApp, cell, DtlSInp(caption))
@@ -347,7 +347,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi số vào ô Excel khi giá trị lớn hơn 0.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="cell">Địa chỉ ô.</param>
     ''' <param name="value">Giá trị số.</param>
     Friend Sub PubDVal(xlApp As Excel.Application, cell As String, value As Double)
@@ -359,7 +359,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi tên, trọng lượng và số lượng thép vào các cột chuẩn AH/CM/BA.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="row">Dòng Excel.</param>
     ''' <param name="name">Tên thép.</param>
     ''' <param name="weight">Trọng lượng.</param>
@@ -375,7 +375,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi tiêu đề, tên, trọng lượng và số lượng thép vào các cột chuẩn X/AH/CM/BA.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="row">Dòng Excel.</param>
     ''' <param name="title">Tiêu đề hạng mục.</param>
     ''' <param name="name">Tên thép.</param>
@@ -393,7 +393,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi đường kính, tiêu đề, tên, trọng lượng và số lượng thép vào các cột chuẩn S/X/AH/CM/BA.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="row">Dòng Excel.</param>
     ''' <param name="d">Đường kính thép.</param>
     ''' <param name="title">Tiêu đề hạng mục.</param>
@@ -413,7 +413,7 @@ Friend Module Common
     ''' <summary>
     ''' Ghi đường kính, tiêu đề, tên, trọng lượng, đơn giá và số lượng thép.
     ''' </summary>
-    ''' <param name="xlApp">Excel application.</param>
+    ''' <param name="xlApp">Ứng dụng Excel.</param>
     ''' <param name="row">Dòng Excel.</param>
     ''' <param name="d">Đường kính thép.</param>
     ''' <param name="title">Tiêu đề hạng mục.</param>
@@ -485,7 +485,7 @@ Friend Module Common
     End Sub
 
     ''' <summary>
-    ''' Ghi prompt nhập liệu bằng màu cyan.
+    ''' Ghi lời nhắc nhập liệu bằng màu xanh lơ.
     ''' </summary>
     ''' <param name="caption">Nội dung cần ghi.</param>
     Private Sub InpSty(caption As String)
@@ -548,7 +548,7 @@ Friend Module Common
     End Sub
 
     ''' <summary>
-    ''' Ghi mô tả phụ trước dấu hai chấm của prompt.
+    ''' Ghi mô tả phụ trước dấu hai chấm của lời nhắc.
     ''' </summary>
     ''' <param name="description">Mô tả phụ.</param>
     Private Sub SfxDesc(description As String)
@@ -569,7 +569,7 @@ Friend Module Common
     ''' <summary>
     ''' Hiển thị intro rồi hỏi một giá trị số.
     ''' </summary>
-    ''' <param name="caption">Nội dung prompt.</param>
+    ''' <param name="caption">Nội dung lời nhắc.</param>
     ''' <returns>Giá trị số người dùng nhập.</returns>
     Friend Function HdrDInp(caption As String) As Double
         Intro()
@@ -588,7 +588,7 @@ Friend Module Common
     ''' <summary>
     ''' Hiển thị intro rồi hỏi giá trị số ở trạng thái chọn lựa.
     ''' </summary>
-    ''' <param name="caption">Nội dung prompt.</param>
+    ''' <param name="caption">Nội dung lời nhắc.</param>
     ''' <returns>Giá trị số người dùng nhập.</returns>
     Friend Function HdrDWrng(caption As String) As Double
         Intro()
@@ -599,7 +599,7 @@ Friend Module Common
     ''' <summary>
     ''' Hiển thị intro rồi hỏi lại giá trị số ở trạng thái lỗi.
     ''' </summary>
-    ''' <param name="caption">Nội dung prompt.</param>
+    ''' <param name="caption">Nội dung lời nhắc.</param>
     ''' <returns>Giá trị số người dùng nhập.</returns>
     Friend Function HdrDErr(caption As String) As Double
         Intro()
@@ -610,7 +610,7 @@ Friend Module Common
     ''' <summary>
     ''' Hỏi một giá trị số trong phần chi tiết hiện tại.
     ''' </summary>
-    ''' <param name="caption">Nội dung prompt.</param>
+    ''' <param name="caption">Nội dung lời nhắc.</param>
     ''' <returns>Giá trị số người dùng nhập.</returns>
     Friend Function DtlDInp(caption As String) As Double
         PrefInp(caption)
@@ -620,7 +620,7 @@ Friend Module Common
     ''' <summary>
     ''' Hỏi một giá trị chuỗi trong phần chi tiết hiện tại.
     ''' </summary>
-    ''' <param name="caption">Nội dung prompt.</param>
+    ''' <param name="caption">Nội dung lời nhắc.</param>
     ''' <returns>Chuỗi người dùng nhập; chuỗi rỗng nếu console trả Nothing.</returns>
     Friend Function DtlSInp(caption As String) As String
         PrefInp(caption)
@@ -630,7 +630,7 @@ Friend Module Common
     ''' <summary>
     ''' Hỏi một giá trị số kèm mô tả phụ trong phần chi tiết hiện tại.
     ''' </summary>
-    ''' <param name="caption">Nội dung prompt chính.</param>
+    ''' <param name="caption">Nội dung lời nhắc chính.</param>
     ''' <param name="description">Mô tả phụ.</param>
     ''' <returns>Giá trị số người dùng nhập.</returns>
     Friend Function DtlDInpDesc(caption As String, description As String) As Double
@@ -640,7 +640,7 @@ Friend Module Common
     End Function
 
     ''' <summary>
-    ''' Đọc input console theo cách cũ của app: text không phải số sẽ thành 0.
+    ''' Đọc dữ liệu nhập từ console theo cách cũ của ứng dụng: nội dung không phải số sẽ thành 0.
     ''' </summary>
     ''' <returns>Giá trị Double sau khi parse bằng Val.</returns>
     Private Function ReadDoubleFromConsole() As Double
