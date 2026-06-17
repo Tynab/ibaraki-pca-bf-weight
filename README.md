@@ -2,7 +2,7 @@
 
 Ứng dụng hỗ trợ đội 西山 thuộc エマールグループ nhập và chuyển dữ liệu nhanh hơn cho mẫu trọng lượng 茨城 (プレキャス - BF) từ đối tác 文化シャッター.
 
-## Màn Hình
+## Icon
 
 <p align='center'>
 <img src='pic/0.png'></img>
